@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worklenz-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worklenz-backend
+  template:
+    metadata:
+      labels:
+        app: worklenz-backend
+    spec:
+      containers:
+        - name: backend
+          image: {{ .Values.backend.image }}
+          ports:
+            - containerPort: {{ .Values.backend.port }}
+          env:
+            {{- range $key, $value := .Values.backend.env }}
+            - name: {{ $key }}
+              value: "{{ $value }}"
+            {{- end }}

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worklenz-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worklenz-frontend
+  template:
+    metadata:
+      labels:
+        app: worklenz-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: {{ .Values.frontend.image }}
+          ports:
+            - containerPort: {{ .Values.frontend.port }}

@@ -1,0 +1,42 @@
+frontend:
+  image: ghcr.io/worklenz/worklenz-frontend
+  port: 4200
+
+backend:
+  image: ghcr.io/worklenz/worklenz-backend
+  port: 3000
+  env:
+    ANGULAR_DIST_DIR: ""
+    ANGULAR_SRC_DIR: ""
+    AWS_REGION: ""
+    BACKEND_PUBLIC_DIR: ""
+    BACKEND_VIEWS_DIR: ""
+    COOKIE_SECRET: "your-cookie-secret"
+    DB_HOST: "worklenz-db"
+    DB_MAX_CLIENTS: "100"
+    DB_NAME: "worklenz_db"
+    DB_PASSWORD: "password"
+    DB_PORT: "5432"
+    DB_USER: "worklenz_user"
+    GOOGLE_CALLBACK_URL: ""
+    GOOGLE_CLIENT_ID: ""
+    GOOGLE_CLIENT_SECRET: ""
+    NODE_ENV: "production"
+    SESSION_SECRET: "your-session-secret"
+    S3_URL: "http://minio:9000"
+    S3_ACCESS_KEY_ID: "minioadmin"
+    S3_SECRET_ACCESS_KEY: "minioadmin"
+
+db:
+  image: postgres:15
+  port: 5432
+  env:
+    POSTGRES_DB: "worklenz_db"
+    POSTGRES_USER: "worklenz_user"
+    POSTGRES_PASSWORD: "password"
+  persistence:
+    enabled: true
+    size: 10Gi
+
+network:
+  name: worklenz-network
